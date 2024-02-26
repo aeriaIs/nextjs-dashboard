@@ -16,8 +16,6 @@ export async function fetchRevenue() {
   noStore();
 
   try {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
     return data.rows;
@@ -42,6 +40,7 @@ export async function fetchLatestInvoices() {
       ...invoice,
       amount: formatCurrency(invoice.amount),
     }));
+
     return latestInvoices;
   } catch (error) {
     console.error('Database Error:', error);
@@ -126,7 +125,7 @@ export async function fetchFilteredInvoices(
 
 export async function fetchInvoicesPages(query: string) {
   noStore();
-  
+
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -196,7 +195,7 @@ export async function fetchCustomers() {
 
 export async function fetchFilteredCustomers(query: string) {
   noStore();
-  
+
   try {
     const data = await sql<CustomersTableType>`
 		SELECT
